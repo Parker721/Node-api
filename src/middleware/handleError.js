@@ -1,3 +1,5 @@
+
+
 const ERROR_HANDLERS = {
     CastError: res =>
       res.status(400).send({ error: 'id used is malformed' }),
@@ -14,7 +16,11 @@ const ERROR_HANDLERS = {
     defaultError: (res, error) => {
       console.error(error.name)
       res.status(500).end()
-    }
+    },
+  TypeError: (res,error)=>{
+    console.log(error.name)
+    res.status(400).end()
+  }
   }
   
 export default  (error, request, response, next) => {

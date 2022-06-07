@@ -11,7 +11,7 @@ export default (request, response, next) => {
 
   const decodedToken = jwt.verify(token, process.env.SECRET)
 
-  if (!token || decodedToken.id!==user_Id) {
+  if (!token || !decodedToken){
     return response.status(401).json({ error: 'token missing or invalid' })
   }
   console.log(decodedToken)
