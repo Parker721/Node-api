@@ -9,7 +9,7 @@ import {
     post_note,
     put_note,
     delete_note
-    } from '../controllers/notes.controllers.js'
+    } from '../controllers/notes.controller.js'
 
 const notesRoute=Router()
 notesRoute.use(express.json())
