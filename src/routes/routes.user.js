@@ -1,44 +1,14 @@
 import Router from 'express';
-import bcrypt from 'bcrypt';
 
-import {User} from '../models/user.js';
-
- const userRouter=Router()
+import{get_users,get_user,post_user,put_user} from '../controllers/user.controller.js'
+const userRouter=Router()
 
 
-userRouter.post('/',async (request,response) => {
-    const {body} = request
-    const user = User(body)
-    const saltRounds = await bcrypt.genSalt(10);
-    user.password = await bcrypt.hash(user.password,saltRounds)
-    console.log(user)
-    await user.save()
-    response.json(user)
+userRouter.post('/api/users',post_user)
 
-})
+userRouter.get('/api/users',get_users)
 
-userRouter.get('/', async (request,response) => {
-    const users=await User.find({})
-    response.json(users)
-})
-
-userRouter.get('/:id', async (request,response,next) => {
-    const {id}=request.params
-
-    
-    try{
-        const user = await User.findById(id)
-            user?
-                response.json(user)
-            :
-            
-                response.status(404).end()
-            
-            }catch(err){ 
-                next(err)
-            }
-
-    
-})
+userRouter.get('/api/users/:id',get_user)
+userRouter.put('/api/users/:id',put_user)
 
 export default userRouter
